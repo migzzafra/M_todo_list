@@ -18,15 +18,16 @@ function createTodo (title, description, dueDate, notes ="", subTasksArray = [],
     }
 }
 
+function tests() {
+    const task = createTodo("read");
+    console.log(task.title);
+    console.log(task.id);
+    console.log(task.status);
+    
+    task.updateDetails({title:"dear", id:"qwe", status:"completed"});
+    console.log(task.title);
+    console.log(task.id);
+    console.log(task.status);
+}
 
-const task = createTodo("read");
-console.log(task.title);
-console.log(task.id);
-console.log(task.status);
-
-
-
-task.updateDetails({title:"dear", id:"qwe", status:"completed"});
-console.log(task.title);
-console.log(task.id);
-console.log(task.status);
+export {createTodo, tests};
