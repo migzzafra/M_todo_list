@@ -26,8 +26,13 @@ function initializeDefaultProject() {
     if (allProjects.length === 0) {
         let defaultProject = createProject("default", "default");
         addProject(defaultProject);
-
     }
 }
 
-export {addProject, removeProject, getProject, getAllProjects, initializeDefaultProject};
+function loadProjects(projects) {
+    for (const project of projects) {
+        addProject(project);
+    }
+}
+
+export {addProject, removeProject, getProject, getAllProjects, initializeDefaultProject, loadProjects};
