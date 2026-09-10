@@ -1,10 +1,5 @@
 import { createTodo } from "./todo.js";
 
-const taskOne = createTodo("read");
-const taskTwo = createTodo("write");
-const taskThree = createTodo("draw");
-
-
 function createProject(name, id = crypto.randomUUID()) {
     let todos =[];
 
@@ -36,23 +31,3 @@ function createProject(name, id = crypto.randomUUID()) {
 }
 
 export {createProject};
-
-
-const proOne = createProject("SetOne");
-proOne.addTodo(taskOne);
-proOne.addTodo(taskTwo);
-proOne.addTodo(taskThree);
-
-console.log(proOne.todos);
-
-
-proOne.removeTodo(taskOne.id);
-console.log("deletion starts here");
-
-
-console.log("updated list here");
-console.log(proOne.todos);
-
-console.log("retrieve todo");
-const retrievedTodo = proOne.getTodo(taskTwo.id);
-console.log(retrievedTodo);
