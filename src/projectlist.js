@@ -24,8 +24,9 @@ function getAllProjects() {
 
 function initializeDefaultProject() {
     if (allProjects.length === 0) {
-        const defaultProject = createProject("Read", id=1);
+        let defaultProject = createProject("default", "default");
         addProject(defaultProject);
+
     }
 }
 
