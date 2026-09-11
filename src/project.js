@@ -1,5 +1,3 @@
-import { createTodo } from "./todo.js";
-
 function createProject(name, id = crypto.randomUUID()) {
     let todos =[];
 
