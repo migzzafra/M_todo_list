@@ -15,6 +15,6 @@ function initializeApp() {
     saveState();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
     initializeApp();
-})
+}) */
