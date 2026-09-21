@@ -9,13 +9,21 @@ function makeInput() {;
     inputField.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && inputField.value.trim() !== "") {
         const projButton = makeButton(inputField.value);
-
         inputField.before(projButton);
         inputField.replaceWith(button);
+        addTaskBtn();
+
+        const taskButton = document.querySelector('.taskbutton');
+    
+        taskButton.addEventListener("click",() => {
+            addTaskForm();
+        });
+
     } else if (e.key === 'Escape') {
         inputField.replaceWith(button);
     }
     });
+
 
     button.replaceWith(inputField);
     inputField.focus();
@@ -55,4 +63,40 @@ function editButton(projButton) {
     editField.select();
 }
 
-export { makeInput, makeButton }
+function addTaskBtn() {
+    const taskContainer = document.querySelector(".todolist-container");
+
+    const taskBtn = document.createElement("button");
+    taskBtn.textContent = "Add Task";
+    taskBtn.type = "button";
+    taskBtn.className = "taskbutton"
+
+    taskContainer.appendChild(taskBtn);
+}
+
+function addTaskForm() {
+    /* const title = title;
+    const description = description;
+    const dueDate = dueDate;
+    const notes = notes;
+    const subTasks = subTasks;
+    const status = status;
+    const priorityLevel = priorityLevel; */
+
+    const taskFormTemplate = `
+        <div class="formheader">
+            <p>Due Date:</p>
+            <p>Status:</p>
+        </div>
+        <div class="taskinfo-container">
+            <h3>TITLE</h3>
+            <h3>Description</h3>
+        </div>
+        <div class="tasknotes-container">
+            <p>This is where notes are typed in.</p>
+        </div>
+    `
+    document.querySelector('.todoeditor').innerHTML = taskFormTemplate;
+}
+
+export { makeInput, makeButton, addTaskForm }
