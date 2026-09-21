@@ -1,4 +1,4 @@
-import { makeButton, makeInput } from "./displaycontrol.js";
+import { addTaskForm, makeInput } from "./displaycontrol.js";
 import { initializeDefaultProject, loadProjects } from "./projectlist.js";
 import { loadState, saveState } from "./storagemananement.js";
 import "./styles.css";
@@ -20,11 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeApp();
 })
 
-const button = document.querySelector('.addproject-Btn');
-
-
-button.addEventListener('click', () => {
+const projectButton = document.querySelector('.addproject-Btn');
+projectButton.addEventListener('click', () => {
     makeInput();
     console.log("Click was executed.");
 });
-
