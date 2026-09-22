@@ -1,4 +1,8 @@
+import { createProject } from "./project.js";
+import { addProject } from "./projectlist.js";
+
 const button = document.querySelector('.addproject-Btn');
+let currentProjectId;
 
 function makeInput() {;
     const inputField = document.createElement('input');
@@ -8,10 +12,17 @@ function makeInput() {;
 
     inputField.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && inputField.value.trim() !== "") {
-        const projButton = makeButton(inputField.value);
+        const newProject = createProject(inputField.value);
+        addProject(newProject);
+        
+        const projButton = makeButton(newProject.name);
+        projButton.dataset.projectId = newProject.id;
+        
+        selectProject(newProject);
         inputField.before(projButton);
         inputField.replaceWith(button);
-        addTaskBtn();
+
+        console.log(`Name: ${newProject.name} - ID: ${newProject.id}`);
 
         const taskButton = document.querySelector('.taskbutton');
     
@@ -97,6 +108,13 @@ function addTaskForm() {
         </div>
     `
     document.querySelector('.todoeditor').innerHTML = taskFormTemplate;
+}
+
+function selectProject(project) {
+    currentProjectId = project.id;
+    document.querySelector('.todolist-container').textContent = "";
+    document.querySelector('.todoeditor').textContent = "";
+    addTaskBtn();
 }
 
 export { makeInput, makeButton, addTaskForm }
