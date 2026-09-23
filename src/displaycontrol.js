@@ -15,8 +15,7 @@ function makeInput() {;
         const newProject = createProject(inputField.value);
         addProject(newProject);
         
-        const projButton = makeButton(newProject.name);
-        projButton.dataset.projectId = newProject.id;
+        const projButton = makeButton(newProject);
         
         selectProject(newProject);
         inputField.before(projButton);
@@ -40,16 +39,21 @@ function makeInput() {;
     inputField.focus();
 }
 
-function makeButton(text) {
+function makeButton(project) {
     const projButton = document.createElement("button");
-    projButton.textContent = text;
+    projButton.textContent = project.name;
     projButton.type = "button";
     projButton.className = 'addproject-Btn';
+    projButton.dataset.projectId = project.id;
     
+
+    projButton.addEventListener('click', () => {
+        selectProject(project);
+    });
 
     projButton.addEventListener('dblclick', () => {
         editButton(projButton);
-    })
+    });
     
     return projButton;
 }
@@ -115,6 +119,7 @@ function selectProject(project) {
     document.querySelector('.todolist-container').textContent = "";
     document.querySelector('.todoeditor').textContent = "";
     addTaskBtn();
+    console.log(project.id);
 }
 
 export { makeInput, makeButton, addTaskForm }
