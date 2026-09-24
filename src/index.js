@@ -1,4 +1,4 @@
-import { switchTo } from "./displaycontrol.js";
+import { submitProject } from "./displaycontrol.js";
 import { initializeDefaultProject, loadProjects } from "./projectlist.js";
 import { loadState, saveState } from "./storagemananement.js";
 import "./styles.css";
@@ -18,11 +18,12 @@ function initializeApp() {
 
 document.addEventListener("DOMContentLoaded", () => {
     initializeApp();
-})
+});
 
 // Method to add projects
 const projectButton = document.querySelector('.addproject-Btn');
+
 projectButton.addEventListener('click',() => {
-    switchTo();
+    submitProject();
     console.log('Clicked Add Project Button');
-})
+});
