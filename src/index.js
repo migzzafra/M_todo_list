@@ -1,4 +1,4 @@
-import { addTaskForm, makeInput } from "./displaycontrol.js";
+import { switchTo } from "./displaycontrol.js";
 import { initializeDefaultProject, loadProjects } from "./projectlist.js";
 import { loadState, saveState } from "./storagemananement.js";
 import "./styles.css";
@@ -20,8 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeApp();
 })
 
+// Method to add projects
 const projectButton = document.querySelector('.addproject-Btn');
-projectButton.addEventListener('click', () => {
-    makeInput();
-    console.log("Click was executed.");
-});
+projectButton.addEventListener('click',() => {
+    switchTo();
+    console.log('Clicked Add Project Button');
+})
