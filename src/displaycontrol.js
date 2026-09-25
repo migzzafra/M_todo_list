@@ -4,6 +4,7 @@ import { addProject } from "./projectlist.js";
 // select the DOM
 const addBtn = document.querySelector('.addbutton');
 const projectContainer = document.querySelector('.projectlist-section');
+const taskContainer = document.querySelector('.todolist-container');
 let currentProjectId;
 
 // function for submitting a project
@@ -12,6 +13,12 @@ function submitProject() {
     const inputField = document.createElement('input');
     inputField.type = 'text';
     inputField.placeholder = 'Project Title';
+    inputField.className = 'title-input';
+
+    // initialize input creation for task title in memory
+    const taskInputField = document.createElement('input');
+    taskInputField.type = 'text';
+    taskInputField.placeholder = 'Task Title';
     inputField.className = 'title-input';
 
     inputField.addEventListener('keydown', (e) => {
@@ -27,6 +34,20 @@ function submitProject() {
             // rendering the project button in the UI
             inputField.before(submittedProject);
             inputField.replaceWith(addBtn);
+
+            // method to add task
+            const addTaskBtn = document.querySelector('.task-button');
+
+            addTaskBtn.addEventListener('click', () => {
+                addTaskBtn.replaceWith(taskInputField);
+                taskInputField.focus();
+
+                taskInputField.addEventListener('keydown', (e) => {
+                    const keyButton = e;
+
+                })
+                console.log('Add Task button clicked');
+            })
             
             // test log
             console.log(`Project Name: ${newProject.name} | ID: ${newProject.id}`);
@@ -67,9 +88,11 @@ function selectProject(project) {
     document.querySelector('.todolist-container').textContent = "";
     document.querySelector('.todoeditor').textContent = "";
 
+    makeTaskButton();
     console.log(project.id);
 }
 
+// function to edit project title
 function editProjectTitle(projectButton) {
     const editField = document.createElement('input');
     editField.type = 'text';
@@ -89,6 +112,16 @@ function editProjectTitle(projectButton) {
             editField.replaceWith(projectButton);
         }
     });
+}
+
+// function to add "Add Task" button after submitting a project
+function makeTaskButton() {
+    const taskButton = document.createElement('button');
+    taskButton.type = 'button';
+    taskButton.textContent = 'Add Task';
+    taskButton.className = 'task-button';
+
+    taskContainer.appendChild(taskButton);
 }
 
 export { submitProject };
