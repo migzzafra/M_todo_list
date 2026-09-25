@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeApp();
 });
 
-// Method to add projects
+// method to add projects
 const projectButton = document.querySelector('.addproject-Btn');
 
 projectButton.addEventListener('click',() => {
