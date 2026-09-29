@@ -1,5 +1,6 @@
 import { createProject } from "./project.js";
 import { addProject } from "./projectlist.js";
+import { createTodo } from "./todo.js";
 
 // select the DOM
 const addBtn = document.querySelector('.addbutton');
@@ -13,12 +14,6 @@ function submitProject() {
     const inputField = document.createElement('input');
     inputField.type = 'text';
     inputField.placeholder = 'Project Title';
-    inputField.className = 'title-input';
-
-    // initialize input creation for task title in memory
-    const taskInputField = document.createElement('input');
-    taskInputField.type = 'text';
-    taskInputField.placeholder = 'Task Title';
     inputField.className = 'title-input';
 
     inputField.addEventListener('keydown', (e) => {
@@ -36,19 +31,8 @@ function submitProject() {
             inputField.replaceWith(addBtn);
 
             // method to add task
-            const addTaskBtn = document.querySelector('.task-button');
-
-            addTaskBtn.addEventListener('click', () => {
-                addTaskBtn.replaceWith(taskInputField);
-                taskInputField.focus();
-
-                taskInputField.addEventListener('keydown', (e) => {
-                    const keyButton = e;
-
-                })
-                console.log('Add Task button clicked');
-            })
-            
+            makeTaskButton();
+                        
             // test log
             console.log(`Project Name: ${newProject.name} | ID: ${newProject.id}`);
         } else if (e.key === 'Escape') { /* if Escape, the project creation is cancelled */ 
@@ -71,6 +55,7 @@ function makeProjectButton (project) {
     // when a project button is clicked, should return the project object
     projectButton.addEventListener('click', () => {
         selectProject(project);
+        makeTaskButton();
     })
 
     // listener for buttons that allows user to edit the title with double click
@@ -88,7 +73,7 @@ function selectProject(project) {
     document.querySelector('.todolist-container').textContent = "";
     document.querySelector('.todoeditor').textContent = "";
 
-    makeTaskButton();
+    
     console.log(project.id);
 }
 
@@ -121,7 +106,74 @@ function makeTaskButton() {
     taskButton.textContent = 'Add Task';
     taskButton.className = 'task-button';
 
+    taskButton.addEventListener('click', () => {
+        makeTaskForm();
+        
+        console.log('Add Task button clicked');
+    })
+
     taskContainer.appendChild(taskButton);
+}
+
+// function to render a form when "Add task" button is clicked
+function makeTaskForm() {
+    const taskFormTemplate = `
+        <div class="formheader">
+            <div class="datecontainer">
+                <label for="date">Due Date</label>
+                <input type="date" id="date" name="date">
+            </div>
+            <div class="statuscontainer">
+                <label for="status">Status:</label>
+                <input type="text" name="status" id="status">
+            </div>
+        </div>
+
+        <div class="taskinfo-container">
+            <div class="titlecontainer">
+                <label for="taskTitle">Title</label>
+                <input type="text" name="taskTitle" id="taskTitle">
+            </div>
+            <div class="descriptioncontainer">
+                <label for="taskDesc">Description</label>
+                <input type="text" name="taskDesc" id="taskDesc">
+            </div>
+        </div>
+
+        <div class="notescontainer">
+            <label for="taskNotes">Notes</label>
+            <input type="text" name="taskNotes" id="taskNotes">
+        </div>
+
+        <button class="taskFormSubmit" type="button">Submit</button>
+    `
+    // renders form in the UI
+    document.querySelector('.todoeditor').innerHTML = taskFormTemplate;
+
+    // when submit button is clicked, the webapp will retrieve infos and create Todo's using the gathered infos
+    const taskFormSubmitBtn = document.querySelector('.taskFormSubmit');
+
+    taskFormSubmitBtn.addEventListener('click', () => {
+        const dueDateValue = document.querySelector('#date').value;
+        const taskTitleValue = document.querySelector('#taskTitle').value;
+        const taskDescValue = document.querySelector('#taskDesc').value;
+        const taskNotesValue = document.querySelector('#taskNotes').value;
+        const taskStatusValue = document.querySelector('#status').value;
+
+        const newTask = createTodo(taskTitleValue, taskDescValue, dueDateValue, taskNotesValue, undefined, taskStatusValue, undefined);
+        
+        
+
+        // creates button with the info/datas input from form
+        const addTaskBtn = document.querySelector('.task-button');
+        const submittedTask = document.createElement('button');
+        submittedTask.type = 'button';
+        submittedTask.textContent = newTask.title.toUpperCase();
+
+        addTaskBtn.before(submittedTask);
+        addTaskBtn.replaceWith(submittedTask);
+        
+    });
 }
 
 export { submitProject };
