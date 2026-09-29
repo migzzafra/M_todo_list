@@ -1,11 +1,27 @@
 <div class="formheader">
-    <p>Due Date:</p>
-    <p>Status:</p>
+    <div class="datecontainer">
+        <label for="date">Due Date</label>
+        <input type="date" id="date" name="date">
+    </div>
+    <div class="statuscontainer">
+        <label for="status">Status:</label>
+        <input type="text" name="status" id="status">
+    </div>
 </div>
+
 <div class="taskinfo-container">
-    <h3>TITLE</h3>
-    <h3>Description</h3>
+    <div class="titlecontainer">
+        <label for="taskTitle">Title</label>
+        <input type="text" name="taskTitle" id="taskTitle">
+    </div>
+    <div class="descriptioncontainer">
+        <label for="taskDesc">Description</label>
+        <input type="text" name="taskDesc" id="taskDesc">
+    </div>
 </div>
-<div class="tasknotes-container">
-    <p>This is where notes are typed in.</p>
+
+<div class="notescontainer">
+    <label for="taskNotes">Notes</label>
+    <input type="text" name="taskNotes" id="taskNotes">
 </div>
+<button class="taskFormSubmit" type="button">Submit</button>
