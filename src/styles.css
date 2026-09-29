@@ -44,3 +44,8 @@ body {
 .todoeditor {
     margin-right: 40px;
 }
+
+.formheader {
+    display: flex;
+    justify-content: space-between;
+}
