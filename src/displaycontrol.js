@@ -8,6 +8,7 @@ const projectContainer = document.querySelector('.projectlist-section');
 const taskContainer = document.querySelector('.todolist-container');
 let currentProjectId;
 
+
 // function for submitting a project
 function submitProject() {
     // initialize input creation for project title in memory
@@ -106,13 +107,12 @@ function makeTaskButton() {
     taskButton.textContent = 'Add Task';
     taskButton.className = 'task-button';
 
+    taskContainer.appendChild(taskButton);
+
     taskButton.addEventListener('click', () => {
         makeTaskForm();
-        
         console.log('Add Task button clicked');
     })
-
-    taskContainer.appendChild(taskButton);
 }
 
 // function to render a form when "Add task" button is clicked
@@ -162,7 +162,6 @@ function makeTaskForm() {
 
         const newTask = createTodo(taskTitleValue, taskDescValue, dueDateValue, taskNotesValue, undefined, taskStatusValue, undefined);
         
-        
 
         // creates button with the info/datas input from form
         const addTaskBtn = document.querySelector('.task-button');
@@ -170,10 +169,44 @@ function makeTaskForm() {
         submittedTask.type = 'button';
         submittedTask.textContent = newTask.title.toUpperCase();
 
+        taskViewer(newTask);
+        
         addTaskBtn.before(submittedTask);
         addTaskBtn.replaceWith(submittedTask);
         
+        
     });
+}
+
+function taskViewer(newTask) {
+
+    const date = newTask.date;
+    const status = newTask.status;
+    const title = newTask.title;
+    const description = newTask.description;
+
+    const taskResult = `
+    <div class="formheader">
+        <div class="datecontainer">
+            <p>Date: ${date}</p>
+        </div>
+        <div class="statuscontainer">
+            <p>Status: ${status}</p>
+        </div>
+    </div>
+    
+    <div class="taskinfo-container">
+        <div class="titlecontainer">
+            <p>Title: ${title}</p>
+        </div>
+        <div class="descriptioncontainer">
+            <p>Description: ${description}</p>
+        </div>
+    </div>
+    `
+    document.querySelector('.todoeditor').innerHTML = taskResult;
+    console.log("test for displayed task");
+    
 }
 
 export { submitProject };
